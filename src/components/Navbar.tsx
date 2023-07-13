@@ -4,6 +4,7 @@ import { Icons } from "./Icons";
 import SearchBar from "./SearchBar";
 import { buttonVariants } from "./ui/Button";
 import { getAuthSession } from "@/lib/auth";
+import { UserAccountNav } from "./UserAccountNav";
 
 const Navbar = async () => {
   const session = await getAuthSession();
@@ -23,7 +24,17 @@ const Navbar = async () => {
 
         {/* ACTIONS */}
         {session?.user ? (
-          <p>Youre logged in</p>
+          <div className="flex flex-row">
+            <UserAccountNav
+              // user={{
+              //   image: `${session.user}`,
+              //   name: `${session.user}`,
+              //   email: `${session.user}`,
+              // }}
+              user={session.user}
+            />
+            <p className="pt-2 font-medium">{session.user.name}</p>
+          </div>
         ) : (
           <Link href="/sign-in" className={buttonVariants()}>
             Sign In
